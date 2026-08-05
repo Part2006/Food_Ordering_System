@@ -1,0 +1,13 @@
+{
+  "name": "food-ordering-system",
+  "version": "1.0.0",
+  "description": "Full-stack food ordering platform (Zomato/Swiggy clone)",
+  "main": "server.js",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently -n \"backend,QuickBite\" -c \"cyan,rose\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
