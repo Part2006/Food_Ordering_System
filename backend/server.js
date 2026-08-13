@@ -67,6 +67,25 @@ app.get('/', (req, res) => {
   res.json({ message: 'Food Ordering System API is running...' });
 });
 
+// Seeding trigger endpoints
+app.get('/api/seed', async (req, res) => {
+  try {
+    await seedIfEmpty(true);
+    res.json({ message: 'Database successfully cleared and seeded with default data!' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/seed-check', async (req, res) => {
+  try {
+    await seedIfEmpty(false);
+    res.json({ message: 'Database check and seed finished.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);

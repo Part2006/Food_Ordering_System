@@ -5,15 +5,24 @@ import MenuItem from './models/menuItem.js';
 import Order from './models/order.js';
 import Review from './models/review.js';
 
-export const seedIfEmpty = async () => {
+export const seedIfEmpty = async (force = false) => {
   try {
-    const userCount = await User.countDocuments();
-    if (userCount > 0) {
-      console.log('Database already has data. Skipping automatic seeding.');
-      return;
+    if (!force) {
+      const userCount = await User.countDocuments();
+      if (userCount > 0) {
+        console.log('Database already has data. Skipping automatic seeding.');
+        return;
+      }
+    } else {
+      console.log('Forced seeding triggered. Clearing existing collections...');
+      await User.deleteMany({});
+      await Restaurant.deleteMany({});
+      await MenuItem.deleteMany({});
+      await Order.deleteMany({});
+      await Review.deleteMany({});
     }
 
-    console.log('Database is empty! Automatically seeding previous orders, users, and customer details...');
+    console.log('Database Seeding: Automatically seeding previous orders, users, and customer details...');
     
     // 1. Generate Hashes
     const salt = await bcrypt.genSalt(10);
