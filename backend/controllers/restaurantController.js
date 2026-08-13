@@ -1,5 +1,6 @@
 import Restaurant from '../models/restaurant.js';
 import MenuItem from '../models/menuItem.js';
+import { seedIfEmpty } from '../seedHelper.js';
 
 // @desc    Get all approved restaurants (with query filters)
 // @route   GET /api/restaurants
@@ -7,6 +8,13 @@ import MenuItem from '../models/menuItem.js';
 export const getRestaurants = async (req, res) => {
   try {
     const { search, cuisine, rating, limit } = req.query;
+    
+    // Self-healing database check: Auto-seed if empty
+    const count = await Restaurant.countDocuments();
+    if (count === 0) {
+      console.log('No restaurants found in database. Automatically seeding default data...');
+      await seedIfEmpty(true);
+    }
     
     // Default filter: only show approved and active restaurants to public
     let filter = { isApproved: true, isActive: true };
