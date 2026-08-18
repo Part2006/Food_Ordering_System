@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Search, Ban, CheckCircle2, User, RefreshCw, UserCheck, ShieldAlert } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const CustomerList = () => {
   const [users, setUsers] = useState([]);

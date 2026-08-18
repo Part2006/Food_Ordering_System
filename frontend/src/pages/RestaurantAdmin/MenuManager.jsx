@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Plus, Edit2, Trash2, Check, X, ShieldAlert, ToggleLeft, ToggleRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const MenuManager = () => {
   const { user } = useContext(AuthContext);

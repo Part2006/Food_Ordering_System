@@ -5,8 +5,8 @@ import { AuthContext } from '../../context/AuthContext';
 import { ClipboardCheck, CheckCircle2, XCircle, Clock, MapPin, Loader2, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
-const SOCKET_URL = 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
+const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const OrdersList = () => {
   const { user } = useContext(AuthContext);
